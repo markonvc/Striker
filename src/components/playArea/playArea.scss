@@ -1,8 +1,12 @@
 .spin_area_container {
     margin: auto;
     margin-top: 10px;
-    width: 900px;
+    width: 800px;
     height: 600px;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    // padding: 20px 50px;
     background-color: grey;
-    border: 3px groove #fff;
+    border: 3px dashed #fff;
 }

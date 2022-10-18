@@ -4,7 +4,6 @@ import * as PIXIScene from "../../helpers/SetUpPIXIScene";
 function SpiningBall({canvas}) {
 
     useEffect(() => {
-        console.log("ggg");
         PIXIScene.renderBall(canvas)
     }, [])
 

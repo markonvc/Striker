@@ -1,0 +1,30 @@
+.doors {
+    display: flex;
+}
+  
+.door_one, .door_two, .door_three  {
+    background: #fafafa;
+    width: 150px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 10px;
+
+    .boxes {
+        transition: transform 1s ease-in-out;
+
+        .box {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 110%;
+
+            .playerImage {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+  

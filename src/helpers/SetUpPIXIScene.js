@@ -7,11 +7,11 @@ import * as PIXI from 'pixi.js'
     
     let stage = new PIXI.Container();
 
-    let ball = PIXI.Sprite.from('https://get-plop.s3.eu-west-1.amazonaws.com/plop/test/widgetNoVariants/assets/ball.jpg');
+    let ball = PIXI.Sprite.from('images/ball.jpg');
 
     const render = () => { 
         requestAnimationFrame(render);  
-        console.log("ffff");
+        
         ball.rotation += 0.01;
         
         renderer.render(stage);
@@ -19,11 +19,8 @@ import * as PIXI from 'pixi.js'
       }
 
     export const  renderBall = (canvas) => {
-        console.log(canvas);
-    
         let canvasElement = document.getElementById(canvas)
         canvasElement.appendChild(renderer.view);
-        console.log(canvasElement);
         
         ball.scale._x = 1.1;
         ball.scale._y = 1.1;
