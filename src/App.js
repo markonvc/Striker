@@ -3,7 +3,7 @@ import { SlotContextProvider } from './context/SlotContext';
 
 import GameTitle from './components/gameTitle/GameTitle';
 import PlayArea from "./components/playArea/PlayArea";
-import SpinButton from './components/buttons/spinButton/SpinButton';
+import CreditArea from './components/creditArea/CreditArea';
 
 import './App.css';
 
@@ -14,7 +14,7 @@ function App() {
       <div className="App">
         <GameTitle />
         <PlayArea />
-        <SpinButton/>
+        <CreditArea/>
       </div>
     </SlotContextProvider>
   );

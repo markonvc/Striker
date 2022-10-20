@@ -1,11 +1,12 @@
 .doors {
     display: flex;
+    flex-direction: column;
 }
   
-.door_one, .door_two, .door_three  {
+.door_one, .door_two, .door_three, .door_four {
     background: #fafafa;
-    width: 150px;
-    height: 160px;
+    width: 160px;
+    height: 170px;
     overflow: hidden;
     border-radius: 5px;
     margin: 10px;
@@ -14,15 +15,11 @@
         transition: transform 1s ease-in-out;
 
         .box {
+            width: 100%;
+            height: 100%;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: cover;
-            height: 110%;
-
-            .playerImage {
-                width: 100%;
-                height: 100%;
-            }
+            background-size: cover
         }
     }
 }

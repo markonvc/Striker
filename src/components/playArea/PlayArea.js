@@ -10,8 +10,9 @@ function PlayArea() {
     return (
         <div className='spin_area_container'>
             <Slot classValue="door_one"/>
-            {/* <Slot classValue="door_two"/>  */}
-            {/* <Slot classValue="door_three"/> */}
+            <Slot classValue="door_two"/> 
+            <Slot classValue="door_three"/>
+            <Slot classValue="door_four"/>
         </div>
     );
 }

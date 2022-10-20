@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { SlotContext } from '../../context/SlotContext';
 
-import SlotData from '../../mock/SlotData';
-
 import "./slot.scss"
 
 function Slot({classValue}) {
@@ -11,7 +9,7 @@ function Slot({classValue}) {
 
     useEffect(() => {
         console.log("effect");
-        init(undefined, undefined, undefined, classValue)
+        init(undefined, classValue)
 
     },[])
 
@@ -35,11 +33,11 @@ function Slot({classValue}) {
                 </div>
             </div>
 
-            <div className={classValue}>
+            {/* <div className={classValue}>
                 <div className="boxes">
                     
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

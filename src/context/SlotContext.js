@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import SlotData from "../mock/SlotData";
 
 
@@ -7,22 +7,18 @@ export const SlotContext = createContext();
 
 export const SlotContextProvider = props => {
 
-    const init = (firstInit = true, groups = 1, duration = 1, classValue) => {
+    const [firstPool, setFirstPool] = useState([]);
+    const [secondPool, setSecondPool] = useState([]);
+    const [thirdPool, setThirdPool] = useState([]);
+    const [fourthPool, setFourthPool] = useState([]);
+
+    const init = (firstInit = true, classValue) => {
         const doors = document.querySelectorAll(`.${classValue}`);
 
         for (const door of doors) {
-            console.log(SlotData);
-            if (firstInit) {
-                console.log("prvi init");
-                door.dataset.spinned = '0';
-            } else if (door.dataset.spinned === '1') {
-                console.log("spin = 1");
-                return;
-            }
       
             const boxes = door.querySelector('.boxes');
             const boxesClone = boxes.cloneNode(false);
-            // const pool = ['5', "6", "7", "8", "9"]
 
             const playersData = [];
 
@@ -31,24 +27,31 @@ export const SlotContextProvider = props => {
             }
 
             const pool = [];
-
             pool.push(...shuffle(playersData));
+            console.log(pool);
 
+            if(!firstInit && classValue === "door_one") {
+                console.log("usao");
+                console.log(pool[0]);
+                setFirstPool(firstPool => [...firstPool, pool[0]]);
+            }else if(!firstInit && classValue === "door_two") {
+                console.log("drugi");
+                console.log(pool[0]);
+                setSecondPool(secondPool => [...secondPool, pool[0]]);
+            }else if(!firstInit && classValue === "door_three") {
+                console.log("treci");
+                console.log(pool[0]);
+                setThirdPool(thirdPool => [...thirdPool, pool[0]]);
+            }else if(!firstInit && classValue === "door_four") {
+                console.log("cetvrti");
+                console.log(pool[0]);
+                setFourthPool(fourthPool => [...fourthPool, pool[0]]);
+            }
       
             if (!firstInit) {
-                console.log("nije prvi init");
-                const arr = [];
-                for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
-                arr.push(...pool);
-                }
-
-                console.log(arr);
-                pool.push(...shuffle(arr));
-        
                 boxesClone.addEventListener(
                 'transitionstart',
                 function () {
-                    door.dataset.spinned = '1';
                     this.querySelectorAll('.box').forEach((box) => {
                     box.style.filter = 'blur(1px)';
                     });
@@ -68,33 +71,26 @@ export const SlotContextProvider = props => {
                 );
             }
       
-            for (let i = pool.length - 1; i >= 0; i--) {
-                console.log("pool length > 0");
+            for (let i = 0; i < pool.length; i++) {
                 const box = document.createElement('div');
-                // console.log("1");
                 box.classList.add('box');
                 box.style.width = door.clientWidth + 'px';
                 box.style.height = door.clientHeight + 'px';
-                // console.log("2");
-                // const playerImage = document.createElement('img')
-                // playerImage.setAttribute('class', "playerImage")
-                // playerImage.setAttribute('src', pool[i].image);
-                // box.appendChild(playerImage); 
                 box.style.backgroundImage = `url(${pool[i].image})`
                 boxesClone.appendChild(box);
-                // console.log("3");
             }
-            boxesClone.style.transitionDuration = `${duration > 0 ? duration : 1}s`;
+
+            boxesClone.style.transitionDuration = `${1}s`;
             boxesClone.style.transform = `translateY(-${door.clientHeight * (pool.length - 1)}px)`;
-            console.log(boxesClone.style.transform);
             door.replaceChild(boxesClone, boxes);
         }
     }
 
-    const spin = async() => {
-        const doors = document.querySelectorAll('.door_one');
+    const spin = async(classValue) => {
 
-        init(false, 1, 2, "door_one");
+        const doors = document.querySelectorAll(`.${classValue}`);
+
+        init(false, classValue);
         
         for (const door of doors) {
           const boxes = door.querySelector('.boxes');
@@ -105,8 +101,6 @@ export const SlotContextProvider = props => {
       }
 
     const shuffle = ([...arr]) => {
-        // console.log(arr);
-
         let m = arr.length;
 
         while (m) {
@@ -115,7 +109,35 @@ export const SlotContextProvider = props => {
         }
 
         return arr;
-      }
+    }
+
+    useEffect(() => {
+        if(firstPool.length == 0 || secondPool.length == 0  || thirdPool.length == 0  || fourthPool.length == 0 ) return;
+
+        console.log(firstPool, secondPool, thirdPool, fourthPool);
+        checkIfWin()
+
+    }, [fourthPool])
+
+    const checkIfWin = () => {
+        console.log("check if win");
+
+        let winOne = []
+        firstPool.forEach((player, index) => {
+            if(player.id === secondPool[index].id) winOne.push(player);
+
+        }) 
+
+        // if(winCombination.length > 0) {
+        //     console.log(winCombination);
+        // }
+
+        setFirstPool([]);
+        setSecondPool([]);
+        setThirdPool([]);
+        setFourthPool([]);
+        
+    }
 
 
     const slotContextValue =  { 

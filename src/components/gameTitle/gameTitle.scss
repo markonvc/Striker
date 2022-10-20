@@ -1,6 +1,4 @@
 .title_container {
-    padding-left: 50px;
-    padding-right: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,6 +6,7 @@
     .heading_container {
         margin-right: 20px;
         font-size: 3.5rem;
+        line-height: 3.5rem;
         text-transform: uppercase;
         color: #fff;
     }

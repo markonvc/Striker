@@ -2,6 +2,9 @@
   width: 100vw;
   height: 100vh;
   background-image: url("./assets/images/field4.jpg"); 
+  -webkit-user-select: none; 
+  -ms-user-select: none;
+  user-select: none; 
 }
 
 .test {
