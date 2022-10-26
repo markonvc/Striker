@@ -1,5 +1,9 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import SlotData from "../mock/SlotData";
+
+import getAllBoxes from "../helpers/GetAllBoxes";
+import removeBlink from "../helpers/RemoveBlink";
+import checkIfPay from "../helpers/CheckIfPay";
+import Data from "../mock/PlayerData";
 
 
 
@@ -7,10 +11,14 @@ export const SlotContext = createContext();
 
 export const SlotContextProvider = props => {
 
-    const [firstPool, setFirstPool] = useState([]);
-    const [secondPool, setSecondPool] = useState([]);
-    const [thirdPool, setThirdPool] = useState([]);
-    const [fourthPool, setFourthPool] = useState([]);
+    const [credit, setCredit] = useState(50);
+    const [bet, setBet] = useState(2)
+
+    const [sound, setSound] = useState(false);
+    const [winSound, setWinSount] = useState(false);
+    const [youWinMessage, setYouWinMessage] = useState(false);
+
+    const [winningRate, setWinningRate] = useState();
 
     const init = (firstInit = true, classValue) => {
         const doors = document.querySelectorAll(`.${classValue}`);
@@ -22,31 +30,13 @@ export const SlotContextProvider = props => {
 
             const playersData = [];
 
-            for(let player of SlotData) {
+            for(let player of Data) {
                 playersData.push(player);
             }
 
             const pool = [];
             pool.push(...shuffle(playersData));
-            console.log(pool);
 
-            if(!firstInit && classValue === "door_one") {
-                console.log("usao");
-                console.log(pool[0]);
-                setFirstPool(firstPool => [...firstPool, pool[0]]);
-            }else if(!firstInit && classValue === "door_two") {
-                console.log("drugi");
-                console.log(pool[0]);
-                setSecondPool(secondPool => [...secondPool, pool[0]]);
-            }else if(!firstInit && classValue === "door_three") {
-                console.log("treci");
-                console.log(pool[0]);
-                setThirdPool(thirdPool => [...thirdPool, pool[0]]);
-            }else if(!firstInit && classValue === "door_four") {
-                console.log("cetvrti");
-                console.log(pool[0]);
-                setFourthPool(fourthPool => [...fourthPool, pool[0]]);
-            }
       
             if (!firstInit) {
                 boxesClone.addEventListener(
@@ -70,10 +60,12 @@ export const SlotContextProvider = props => {
                 { once: true }
                 );
             }
+
       
             for (let i = 0; i < pool.length; i++) {
                 const box = document.createElement('div');
                 box.classList.add('box');
+                box.setAttribute("id", pool[i].id);
                 box.style.width = door.clientWidth + 'px';
                 box.style.height = door.clientHeight + 'px';
                 box.style.backgroundImage = `url(${pool[i].image})`
@@ -87,18 +79,31 @@ export const SlotContextProvider = props => {
     }
 
     const spin = async(classValue) => {
-
-        const doors = document.querySelectorAll(`.${classValue}`);
-
-        init(false, classValue);
-        
-        for (const door of doors) {
-          const boxes = door.querySelector('.boxes');
-          const duration = parseInt(boxes.style.transitionDuration);
-          boxes.style.transform = 'translateY(0)';
-          await new Promise((resolve) => setTimeout(resolve, duration * 100));
+        if(credit >= bet) {
+            setCredit(credit - bet);
+            setWinSount(false);
+            setYouWinMessage(false);
+            removeBlink();
+    
+            const doors = document.querySelectorAll(`.${classValue}`);
+    
+            init(false, classValue);
+    
+            
+            for (const door of doors) {
+              const boxes = door.querySelector('.boxes');
+              const duration = parseInt(boxes.style.transitionDuration);
+              boxes.style.transform = 'translateY(0)';
+              await new Promise((resolve) => setTimeout(resolve, duration * 100));
+            }
+    
+    
+            if(classValue === "door_four") {
+                getResult()
+            }
+          }
         }
-      }
+       
 
     const shuffle = ([...arr]) => {
         let m = arr.length;
@@ -111,37 +116,45 @@ export const SlotContextProvider = props => {
         return arr;
     }
 
-    useEffect(() => {
-        if(firstPool.length == 0 || secondPool.length == 0  || thirdPool.length == 0  || fourthPool.length == 0 ) return;
 
-        console.log(firstPool, secondPool, thirdPool, fourthPool);
-        checkIfWin()
+    const payOut = (rate) => {
+        console.log(rate, bet);
+        let winAmount = bet * (rate / 2);
+        console.log(winAmount);
+        let finalAmount = Math.trunc(winAmount);
 
-    }, [fourthPool])
+        setCredit(credit + finalAmount);
+    }
 
-    const checkIfWin = () => {
-        console.log("check if win");
+    const getResult = () => {
 
-        let winOne = []
-        firstPool.forEach((player, index) => {
-            if(player.id === secondPool[index].id) winOne.push(player);
+        let sequenceResult = getAllBoxes();
 
-        }) 
+        const rate = checkIfPay(sequenceResult);
 
-        // if(winCombination.length > 0) {
-        //     console.log(winCombination);
-        // }
-
-        setFirstPool([]);
-        setSecondPool([]);
-        setThirdPool([]);
-        setFourthPool([]);
+        rate > 0 && setWinningRate(rate) 
         
     }
 
+    useEffect(() => {
+        if(winningRate > 0) {
+            payOut(winningRate);
+            setWinSount(true);
+            setYouWinMessage(true);
+        }
+        
+    }, [winningRate])
+
+    // useEffect(() => {
+    //     if(credit < bet) setBet(credit);
+
+    // }, [credit])
+
 
     const slotContextValue =  { 
-        init, spin, shuffle
+        bet, credit, sound, winSound, youWinMessage,
+        setBet, setCredit, setSound, setWinSount,
+        init, spin, shuffle, setYouWinMessage
     }
     
 
@@ -150,4 +163,5 @@ export const SlotContextProvider = props => {
             {props.children}
         </SlotContext.Provider>
     )
-}
+
+}    

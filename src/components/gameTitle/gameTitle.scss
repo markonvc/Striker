@@ -1,4 +1,5 @@
 .title_container {
+    padding-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,8 +7,65 @@
     .heading_container {
         margin-right: 20px;
         font-size: 3.5rem;
+        font-weight: bold;
         line-height: 3.5rem;
         text-transform: uppercase;
         color: #fff;
+
+        .heading {
+            margin: 0;
+        }
     }
+}
+
+@media (max-width: 1800px) {
+    .title_container {
+        .heading_container {
+            font-size: 2.7rem;
+            line-height: 2.7rem;
+        }
+    }
+
+}
+
+@media (max-width: 1400px) {
+    .title_container {
+        .heading_container {
+            font-size: 2.4rem;
+            line-height: 2.4rem;
+        }
+    }
+
+}
+
+@media (max-width: 1200px) {
+    .title_container {
+        .heading_container {
+            font-size: 2rem;
+            line-height: 2rem;
+        }
+    }
+
+}
+
+@media (max-width: 992px) {
+    .title_container {
+        .heading_container {
+            font-size: 1.5rem;
+            line-height: 1.5rem;
+        }
+    }
+
+}
+
+@media (max-width: 600px) {
+    .title_container { 
+        margin-top: 20px;
+        margin-bottom: 20px;
+        .heading_container {
+            font-size: 1.3rem;
+            line-height: 1.3rem;
+        }
+    }
+
 }

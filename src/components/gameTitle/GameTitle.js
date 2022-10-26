@@ -8,7 +8,7 @@ function GameTitle() {
 
     return (
         <div className='title_container'>
-            <div className='heading_container'><p className='heading'>best striker</p></div>
+            <div className='heading_container'><p className='heading'>striker</p></div>
             <SpiningBall canvas="canvasContainer"/>
         </div>
     );

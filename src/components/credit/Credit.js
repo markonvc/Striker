@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { SlotContext } from '../../context/SlotContext';
 
 import "./credit.scss";
 
 function Credit() {
+    const { credit } = useContext(SlotContext);
+
     return (
         <div className='credit'>
-            <span>500</span>
+            <span>{credit}</span>
         </div>
     );
 }

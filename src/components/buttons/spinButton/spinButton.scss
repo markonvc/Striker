@@ -2,10 +2,14 @@
     margin-left: 20px;
     width: 70px;
     height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #fff;
     border-radius: 3px;
     background-color: transparent;
     font-size: 1rem;
+    font-weight: bold;
     color: #fff;
     text-transform: uppercase;
     cursor: pointer;
@@ -15,4 +19,51 @@
         color: #000;
     }
 
+}
+
+@media(max-width: 1800px) {
+    .spin {
+        margin-left: 20px;
+        width: 60px;
+        height: 30px;
+        font-size: 0.8rem;
+
+    
+    }
+}
+
+@media(max-width: 1400px) {
+    .spin {
+        width: 50px;
+        height: 25px;
+    
+    }
+}
+
+@media(max-width: 1200px) {
+    .spin {
+        width: 50px;
+        height: 20px;
+        font-size: 0.6rem;
+    
+    }
+}
+
+@media(max-width: 992px) {
+    .spin {
+        margin-left: 10px;
+        width: 50px;
+        height: 20px;
+        font-size: 0.6rem;
+    
+    }
+}
+
+@media(max-width: 768px) {
+    .spin {
+        width: 50px;
+        height: 30px;
+        font-size: 0.8rem;
+    
+    }
 }

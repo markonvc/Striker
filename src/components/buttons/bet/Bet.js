@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
+
+import { SlotContext } from '../../../context/SlotContext';
 
 import "./bet.scss";
 
 function Bet() {
-    const [bet, setBet] = useState(500);
+    const { bet, setBet, credit } = useContext(SlotContext);
 
     const decreaseBet = () => {
-        setBet(bet - 2)
+        if(bet > 1 ) setBet(bet - 1); 
+
     }
 
     const increaseBet = () => {
-        setBet(bet + 2)
+        if( bet < 50 && bet < credit) setBet(bet + 1);
+
     }
 
     return (

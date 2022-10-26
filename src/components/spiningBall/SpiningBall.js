@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import * as PIXIScene from "../../helpers/SetUpPIXIScene";
 
+import "./spinnigBall.scss"
+
+
 function SpiningBall({canvas}) {
 
     useEffect(() => {
