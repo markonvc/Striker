@@ -17,7 +17,7 @@ function StartGame() {
 
     const startGame = () => {
         setSound(true);
-        setCredit(50);
+        setCredit(500);
         setBet(2);
         lobby.current.style.display = "none";
     }

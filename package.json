@@ -1,6 +1,5 @@
 {
-  "name": "best-striker",
-  "homepage": "http://www.markonvc.com/",
+  "name": "striker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
