@@ -1,21 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { SlotContext } from '../../context/SlotContext';
 
 import "./startGame.scss";
 
 function StartGame() {
-    const { credit } = useContext(SlotContext);
-    const [startGame, setStartGame] = useState("start");
+    const { setCredit, setBet, newGame, setSound } = useContext(SlotContext);
+    const [lobbyButton, setLobbyButton] = useState("start game");
+    const lobby = useRef();
 
     useEffect(() => {
-        if(credit < 1) {
-            setStartGame("new game");
+        if(newGame) {
+            setLobbyButton("new game");
+            lobby.current.style.display = "flex";
         }
-    }, [credit])
+    }, [newGame])
+
+    const startGame = () => {
+        setSound(true);
+        setCredit(50);
+        setBet(2);
+        lobby.current.style.display = "none";
+    }
 
     return (
-        <div className=''>
-            <button className='start_game'>{startGame}</button>
+        <div className='lobby_page' ref={lobby}>
+            <button className='start_game' onClick={() => startGame()}>{lobbyButton}</button>
         </div>
     );
 }

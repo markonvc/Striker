@@ -9,7 +9,6 @@ function SpinButton({props}) {
     const spinTheCards = async() => {
         let doors = ["door_one", "door_two", "door_three", "door_four"]
         for(let i = 0; i < doors.length; i++) {
-            console.log(doors[i]);
             spin(doors[i]);
             await new Promise((resolve) => setTimeout(resolve, 800));
         }

@@ -1,3 +1,59 @@
+.lobby_page {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba($color: #2b2828, $alpha: 1.0);
+    z-index: 100;
+
+}
+
 .start_game {
-    
+    padding: 20px 30px;
+    background-color: green;
+    color: #fff;
+    font-size: 3rem;
+    border: none;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+@media(max-width: 1800px) {
+    .start_game {
+        font-size: 2.7rem;
+    }
+}
+
+@media(max-width: 1400px) {
+    .start_game {
+        font-size: 2.1rem;
+    }
+}
+
+@media(max-width: 1200px) {
+    .start_game {
+        font-size: 1.8rem;
+    }
+}
+
+@media(max-width: 992px) {
+    .start_game {
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 768px) {
+    .start_game {
+        font-size: 1.4rem;
+    }
+}
+
+@media(max-width: 600px) {
+    .start_game {
+        font-size: 1.3rem;
+    }
 }

@@ -1,6 +1,49 @@
-.you_win {
-    display: flex;
-    justify-content: center;
-    text-transform: uppercase;
-    color: red;
+.you_win_container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+  pointer-events: none;
+
+}
+
+.win_message {
+  font-size: 6rem;
+  color: red;
+  text-transform: uppercase;
+  animation: zoom-in-zoom-out 1.5s ease infinite;
+}
+
+@keyframes zoom-in-zoom-out {
+  0% {
+    transform: scale(1, 1);
   }
+  50% {
+    transform: scale(1.5, 1.5);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+
+}
+
+
+
+@media(max-width: 1400px) {
+  .win_message {
+    font-size: 4rem;
+  }
+}
+
+@media(max-width: 1200px) {
+  .you_win_container {
+    transform: translate(-50%, -100%);
+  
+  }
+
+  .win_message {
+    font-size: 3rem;
+  
+  }
+}

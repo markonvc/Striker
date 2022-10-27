@@ -11,14 +11,15 @@ export const SlotContext = createContext();
 
 export const SlotContextProvider = props => {
 
-    const [credit, setCredit] = useState(50);
+    const [credit, setCredit] = useState();
     const [bet, setBet] = useState(2)
-
     const [sound, setSound] = useState(false);
+    const [spinSound, setSpinSound] = useState(false);
     const [winSound, setWinSount] = useState(false);
     const [youWinMessage, setYouWinMessage] = useState(false);
-
     const [winningRate, setWinningRate] = useState();
+    const [newGame, setNewGame] = useState(false);
+    
 
     const init = (firstInit = true, classValue) => {
         const doors = document.querySelectorAll(`.${classValue}`);
@@ -80,6 +81,7 @@ export const SlotContextProvider = props => {
 
     const spin = async(classValue) => {
         if(credit >= bet) {
+            setSpinSound(true);
             setCredit(credit - bet);
             setWinSount(false);
             setYouWinMessage(false);
@@ -118,9 +120,7 @@ export const SlotContextProvider = props => {
 
 
     const payOut = (rate) => {
-        console.log(rate, bet);
         let winAmount = bet * (rate / 2);
-        console.log(winAmount);
         let finalAmount = Math.trunc(winAmount);
 
         setCredit(credit + finalAmount);
@@ -132,7 +132,7 @@ export const SlotContextProvider = props => {
 
         const rate = checkIfPay(sequenceResult);
 
-        rate > 0 && setWinningRate(rate) 
+        setWinningRate(rate)
         
     }
 
@@ -141,20 +141,22 @@ export const SlotContextProvider = props => {
             payOut(winningRate);
             setWinSount(true);
             setYouWinMessage(true);
+
+        }else if (credit === 0) {
+            setTimeout(() => {
+                setNewGame(true);
+            }, 2000)
+
         }
         
     }, [winningRate])
 
-    // useEffect(() => {
-    //     if(credit < bet) setBet(credit);
-
-    // }, [credit])
-
 
     const slotContextValue =  { 
-        bet, credit, sound, winSound, youWinMessage,
+        bet, credit, sound, winSound, 
+        youWinMessage, newGame, spinSound,
         setBet, setCredit, setSound, setWinSount,
-        init, spin, shuffle, setYouWinMessage
+        setSpinSound, init, spin, shuffle, setYouWinMessage
     }
     
 

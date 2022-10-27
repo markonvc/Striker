@@ -18,7 +18,6 @@ const checkWin = (resultRow, combination) => {
         if(resultRow[i].id == combination.id) {
             if(!boxId) boxId = resultRow[i].id  
             match++;
-            console.log(match);
         } 
     }
 
@@ -26,7 +25,6 @@ const checkWin = (resultRow, combination) => {
 
     if ( boxId && match >= 2 && (boxId != 8 &&
         boxId != 9 && boxId != 11 )) {
-            console.log("prvi", boxId);
             for(let box of resultRow) {
                 if(box.id == boxId) {
                     box.classList.add("boxBlink")   
@@ -34,7 +32,6 @@ const checkWin = (resultRow, combination) => {
             }
     }else if (boxId && match >= 3 && (boxId == 8 ||
               boxId == 9 || boxId == 11)) {
-                console.log("drugi");
             for(let box of resultRow) {
                 if(box.id == boxId) {
                     box.classList.add("boxBlink")   

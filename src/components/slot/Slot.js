@@ -8,7 +8,6 @@ function Slot({classValue}) {
     
 
     useEffect(() => {
-        console.log("effect");
         init(undefined, classValue)
 
     },[])

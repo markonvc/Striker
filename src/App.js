@@ -13,9 +13,9 @@ function App() {
   return (
     <SlotContextProvider>
       <div className="App">
-        {/* <StartGame/> */}
+        <StartGame/>
         <GameTitle />
-        {/* <YouWinMessage/> */}
+        <YouWinMessage/>
         <PlayArea />
         <CreditArea/>
       </div>
