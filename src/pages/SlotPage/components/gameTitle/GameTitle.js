@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SpiningBall from "../spiningBall/SpiningBall";
+import SpiningBall from "../../../../components/spiningBall/SpiningBall";
 
 import "./gameTitle.scss"
 

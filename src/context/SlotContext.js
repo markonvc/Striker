@@ -146,7 +146,6 @@ export const SlotContextProvider = props => {
             setTimeout(() => {
                 setNewGame(true);
             }, 2000)
-
         }
         
     }, [winningRate])

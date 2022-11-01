@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SlotContext } from '../../context/SlotContext';
+import { SlotContext } from '../../../../../context/SlotContext';
 
 import "./youWinMessage.scss";
 
